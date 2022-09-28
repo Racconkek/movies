@@ -1,12 +1,12 @@
 import "../styles/globals.css";
 import React from "react";
-import Footer from "../components/general/footer";
-import Header from "../components/general/header";
+import Header from "../components/header/header";
 import { getMyInfo } from "../api/user";
 import { useEffect } from "react";
 import { observer } from "mobx-react";
 import GlobalStore from "../mobx/GlobalStore";
 import { AppProps } from "next/app";
+import styles from './app.module.css';
 
 function MyApp({
   Component,
@@ -53,29 +53,24 @@ function MyApp({
   }, []);
 
   return (
-    <div>
-      <main>
-        <Header
-          pathname={pathname}
-          menuItems={
-            GlobalStore.authorized
-              ? [
-                  { title: "Список видео", url: "/videos" },
-                  { title: "Понравившиеся", url: "/favourites" },
-                  {
-                    title: `Профиль (${GlobalStore.getFullName})`,
-                    url: "/profile",
-                  },
-                  { title: "Выйти", url: "/api/user/logout" },
-                ]
-              : []
-          }
-          authorized={GlobalStore.authorized}
-        />
-        <Component {...pageProps} />
-      </main>
-      <Footer />
-    </div>
+    <main className={styles.root}>
+      <Header
+        pathname={pathname}
+        menuItems={
+          GlobalStore.authorized
+            ? [
+                {
+                  title: `Профиль`,
+                  url: "/profile",
+                },
+                { title: "Выйти", url: "/api/user/logout" },
+              ]
+            : []
+        }
+        authorized={GlobalStore.authorized}
+      />
+      <Component {...pageProps} />
+    </main>
   );
 }
 

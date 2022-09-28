@@ -2,13 +2,14 @@ import React, { ReactElement } from "react";
 import { observer } from "mobx-react";
 import GlobalStore from "../mobx/GlobalStore";
 import Head from "next/head";
+import styles from './profile.module.css';
 
 function ProfilePage(): ReactElement {
 
   return (
-    <div>
+    <div className={styles.root}>
       <Head>
-        <title>Мой профиль</title>
+        <title>Профиль</title>
       </Head>
       <img
         src={GlobalStore.avatar}
