@@ -3,13 +3,13 @@ FROM node:16
 USER root
 RUN apt-get -y update
 
-COPY backend /backend
-COPY frontend /frontend
+COPY server /server
+COPY client /client
 COPY .npmrc /
-COPY package-lock.json /
+COPY .env /
+COPY yarn.lock /
 COPY package.json /
 COPY tsconfig.json /
-RUN mkdir uploads
 
 RUN yarn install
 
