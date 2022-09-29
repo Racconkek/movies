@@ -11,7 +11,6 @@ import session from "express-session";
 dotenv.config();
 
 const app = express();
-const PORT = 8000;
 const day = 24 * 60 * 60 * 1000;
 const sessionParser = session({
   secret: "f9843f745a02a0d21939db094279dd0507673ee3ecf03593850e960cd8070b78",
@@ -23,6 +22,7 @@ const sessionParser = session({
 });
 
 const dev = process.env.NODE_ENV !== "production";
+const PORT = dev ? 8000 : process.env.PORT
 const nextJSApp = next({ dev, dir: "./client" });
 const handle = nextJSApp.getRequestHandler();
 
