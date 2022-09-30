@@ -10,7 +10,8 @@ import {
   BelongsToMany,
   Index,
 } from "sequelize-typescript";
-import LikeUserVideo from "./likeUserVideo";
+import Like from "./like";
+import Movie from "./movie";
 
 @Table
 class User extends Model {
@@ -36,6 +37,12 @@ class User extends Model {
 
   @Column(DataType.STRING)
   avatar!: string;
+
+  @HasMany(() => Movie, "authorId")
+  ownVideos: Movie[];
+
+  @BelongsToMany(() => Movie, () => Like, "userId")
+  likedVideos: Movie[];
 }
 
 export default User;

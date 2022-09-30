@@ -23,7 +23,7 @@ const sessionParser = session({
 
 const dev = process.env.NODE_ENV !== "production";
 const PORT = dev ? 8000 : process.env.PORT
-const nextJSApp = next({ dev: true, dir: "./client" });
+const nextJSApp = next({ dev, dir: "./client" });
 const handle = nextJSApp.getRequestHandler();
 
 nextJSApp.prepare().then(async () => {
