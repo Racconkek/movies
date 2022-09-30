@@ -59,11 +59,15 @@ function MyApp({
         menuItems={
           GlobalStore.authorized
             ? [
-                {
-                  title: `Профиль`,
-                  url: "/profile",
-                },
-                { title: "Выйти", url: "/api/user/logout" },
+              {
+                title: `Профиль`,
+                url: "/profile",
+              },
+              {
+                title: 'Фильмы',
+                url: '/movies'
+              },
+              { title: "Выйти", url: "/api/user/logout" },
               ]
             : []
         }
