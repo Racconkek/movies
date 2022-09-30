@@ -42,7 +42,7 @@ class User extends Model {
   ownVideos: Movie[];
 
   @BelongsToMany(() => Movie, () => Like, "userId")
-  likedVideos: Movie[];
+  likedMovies: Movie[];
 }
 
 export default User;
