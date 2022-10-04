@@ -1,4 +1,4 @@
-import { action, observable, makeObservable, computed } from "mobx";
+import { action, observable, makeObservable, computed } from 'mobx';
 
 class GlobalModel {
   constructor() {

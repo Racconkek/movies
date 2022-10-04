@@ -1,7 +1,7 @@
-import React, {ReactElement, useState} from "react";
-import {Navbar} from "react-bulma-components";
+import React, { ReactElement, useState } from 'react';
+import { Navbar } from 'react-bulma-components';
 import styles from './header.module.css';
-import {cx} from '@emotion/css';
+import { cx } from '@emotion/css';
 
 function Header(props: {
   authorized: boolean;
@@ -17,24 +17,26 @@ function Header(props: {
         <Navbar.Item href={'/'} key={'main'}>
           Главная
         </Navbar.Item>
-        <Navbar.Burger onClick={() => setIsActive(!isActive)}/>
+        <Navbar.Burger onClick={() => setIsActive(!isActive)} />
       </Navbar.Brand>
       <Navbar.Menu>
         <Navbar.Container align={'left'}>
           {menuItems.map((section) => (
-            <Navbar.Item href={section.url} key={section.title} className={cx(section.url === pathname && styles.activeItem)}>
+            <Navbar.Item
+              href={section.url}
+              key={section.title}
+              className={cx(section.url === pathname && styles.activeItem)}
+            >
               {section.title}
             </Navbar.Item>
           ))}
         </Navbar.Container>
         <Navbar.Container align={'right'}>
-          {authorized ?
-            <Navbar.Item href="/api/user/logout">
-              Выйти
-            </Navbar.Item>
-           : <Navbar.Item href="/api/user/oauth/google">
-            Войти
-          </Navbar.Item> }
+          {authorized ? (
+            <Navbar.Item href="/api/user/logout">Выйти</Navbar.Item>
+          ) : (
+            <Navbar.Item href="/api/user/oauth/google">Войти</Navbar.Item>
+          )}
         </Navbar.Container>
       </Navbar.Menu>
     </Navbar>

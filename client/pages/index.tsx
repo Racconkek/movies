@@ -1,6 +1,6 @@
-import { observer } from "mobx-react";
-import Head from "next/head";
-import React, { ReactElement } from "react";
+import { observer } from 'mobx-react';
+import Head from 'next/head';
+import React, { ReactElement } from 'react';
 
 function HomePage(): ReactElement {
   return (

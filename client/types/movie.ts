@@ -1,5 +1,5 @@
-import Comment from "./comment";
-import User from "./user";
+import Comment from './comment';
+import User from './user';
 
 export interface Movie {
   id: number;
@@ -10,4 +10,4 @@ export interface Movie {
   description: string;
   comments: Comment[];
   createdAt: Date;
-};
+}

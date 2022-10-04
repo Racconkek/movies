@@ -1,20 +1,15 @@
 import 'bulma/css/bulma.min.css';
-import "../styles/globals.css";
-import React from "react";
-import Header from "../components/header/header";
-import { getMyInfo } from "../api/user";
-import { useEffect } from "react";
-import { observer } from "mobx-react";
-import GlobalStore from "../mobx/GlobalStore";
-import { AppProps } from "next/app";
+import '../styles/globals.css';
+import React from 'react';
+import Header from '../components/header/header';
+import { getMyInfo } from '../api/user';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react';
+import GlobalStore from '../mobx/GlobalStore';
+import { AppProps } from 'next/app';
 import styles from './app.module.css';
 
-function MyApp({
-  Component,
-  pageProps,
-  pathname,
-}: AppProps & { pathname: string }) {
-
+function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string }) {
   async function load() {
     let myInfo;
     try {
@@ -60,20 +55,22 @@ function MyApp({
         menuItems={
           GlobalStore.authorized
             ? [
-              {
-                title: `Профиль`,
-                url: "/profile",
-              },
-              {
-                title: 'Фильмы',
-                url: '/movies'
-              },
+                {
+                  title: `Профиль`,
+                  url: '/profile',
+                },
+                {
+                  title: 'Фильмы',
+                  url: '/movies',
+                },
               ]
             : []
         }
         authorized={GlobalStore.authorized}
       />
-      <div className={styles.container}><Component {...pageProps} /></div>
+      <div className={styles.container}>
+        <Component {...pageProps} />
+      </div>
     </main>
   );
 }

@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import Head from "next/head";
+import React, { ReactElement } from 'react';
+import Head from 'next/head';
 
 export default function GoogleAuthFailedPage(): ReactElement {
   return (
