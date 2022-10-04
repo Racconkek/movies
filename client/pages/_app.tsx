@@ -1,3 +1,4 @@
+import 'bulma/css/bulma.min.css';
 import "../styles/globals.css";
 import React from "react";
 import Header from "../components/header/header";
@@ -67,13 +68,12 @@ function MyApp({
                 title: 'Фильмы',
                 url: '/movies'
               },
-              { title: "Выйти", url: "/api/user/logout" },
               ]
             : []
         }
         authorized={GlobalStore.authorized}
       />
-      <Component {...pageProps} />
+      <div className={styles.container}><Component {...pageProps} /></div>
     </main>
   );
 }

@@ -11,9 +11,11 @@
     "deploy": "yarn build && yarn start"
   },
   "dependencies": {
+    "@emotion/css": "^11.10.0",
     "axios": "^0.21.1",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-styled-components": "^1.12.0",
+    "bulma": "^0.9.4",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
@@ -29,6 +31,7 @@
     "passport-google-oauth": "^2.0.0",
     "pg": "^8.6.0",
     "react": "^17.0.2",
+    "react-bulma-components": "^4.1.0",
     "react-dom": "^17.0.2",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.2",

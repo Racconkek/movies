@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { observer } from "mobx-react";
 import {Movie} from "../types/movie";
 import {createMovie, getMovies} from "../api/movieApi";
+import {Button} from "react-bulma-components";
 
 function MoviesPage() {
   const [movies, setMovies] = useState<undefined | Movie[]>();
@@ -42,9 +43,9 @@ function MoviesPage() {
 
 
   return <div>
-    <button onClick={onClick}>
+    <Button color={'info'} onClick={onClick}>
       Создать фильм
-    </button>
+    </Button>
     <div>{isLoading ? 'Загрузка' : movies.map(m => m.name)}</div>
   </div>
 }

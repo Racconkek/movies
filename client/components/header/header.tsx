@@ -1,30 +1,43 @@
-import NextJSLink from "next/link";
-import React, { ReactElement } from "react";
+import React, {ReactElement, useState} from "react";
+import {Navbar} from "react-bulma-components";
 import styles from './header.module.css';
+import {cx} from '@emotion/css';
 
 function Header(props: {
   authorized: boolean;
   pathname: string;
   menuItems: Array<{ title: string; url: string }>;
 }): ReactElement {
-  const { menuItems = [], authorized } = props;
+  const { menuItems = [], authorized, pathname } = props;
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
-    <div className={styles.root}>
-      <NextJSLink href={'/'} key={'main'} passHref>
-        Главная
-      </NextJSLink>
-      {!authorized && (
-        <a href="/api/user/oauth/google">
-          Войти
-        </a>
-      )}
-      {menuItems.map((section) => (
-        <NextJSLink href={section.url} key={section.title} passHref>
-          {section.title}
-        </NextJSLink>
-      ))}
-    </div>
+    <Navbar transparent size={'large'} fixed={'top'} active={isActive}>
+      <Navbar.Brand>
+        <Navbar.Item href={'/'} key={'main'}>
+          Главная
+        </Navbar.Item>
+        <Navbar.Burger onClick={() => setIsActive(!isActive)}/>
+      </Navbar.Brand>
+      <Navbar.Menu>
+        <Navbar.Container align={'left'}>
+          {menuItems.map((section) => (
+            <Navbar.Item href={section.url} key={section.title} className={cx(section.url === pathname && styles.activeItem)}>
+              {section.title}
+            </Navbar.Item>
+          ))}
+        </Navbar.Container>
+        <Navbar.Container align={'right'}>
+          {authorized ?
+            <Navbar.Item href="/api/user/logout">
+              Выйти
+            </Navbar.Item>
+           : <Navbar.Item href="/api/user/oauth/google">
+            Войти
+          </Navbar.Item> }
+        </Navbar.Container>
+      </Navbar.Menu>
+    </Navbar>
   );
 }
 
