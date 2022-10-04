@@ -1,4 +1,5 @@
 import 'bulma/css/bulma.min.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../styles/globals.css';
 import React from 'react';
 import Header from '../components/header/header';

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Movie } from '../types/movie';
 import { createMovie, getMovies } from '../api/movieApi';
-import { Button, Container } from 'react-bulma-components';
+import { Block, Box, Button, Container } from 'react-bulma-components';
 import Head from 'next/head';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 function MoviesPage() {
   const [movies, setMovies] = useState<undefined | Movie[]>();
@@ -42,15 +43,21 @@ function MoviesPage() {
   };
 
   return (
-    <Container>
+    <>
       <Head>
         <title>Фильмецы</title>
       </Head>
-      <div>{isLoading ? 'Загрузка' : movies.map((m) => m.name)}</div>
-      <Button color={'info'} onClick={onClick}>
-        Создать фильм
-      </Button>
-    </Container>
+      <Container style={{ width: '100%' }}>
+        <Block>
+          <Button size={'medium'} color={'info'} onClick={onClick} fullwidth={false}>
+            Создать
+          </Button>
+        </Block>
+        <PerfectScrollbar style={{ height: '80%' }}>
+          {isLoading ? 'Загрузка' : movies.map((m) => <Box>{m.name}</Box>)}
+        </PerfectScrollbar>
+      </Container>
+    </>
   );
 }
 
