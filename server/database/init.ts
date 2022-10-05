@@ -14,5 +14,5 @@ export default async function (): Promise<void> {
         throw e;
     }
     sequelize.addModels([Comment, User, Movie, Like]);
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
 }

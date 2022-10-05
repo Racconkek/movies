@@ -22,7 +22,7 @@ export const getMovies = (): AxiosPromise => axios.get(`${URL}/movies`);
 
 export const getMovie = (movieId: string): AxiosPromise => axios.get(`${URL}/movies/${movieId}`);
 
-export const toggleLike = (movieId: string): AxiosPromise => axios.post(`${URL}/movies/${movieId}/toggleLike`);
+export const toggleLike = (movieId: string): AxiosPromise<Movie> => axios.post(`${URL}/movies/${movieId}/toggleLike`);
 
 export const getFavouriteMovies = (): AxiosPromise => axios.get(`${URL}/movies/favourites`);
 

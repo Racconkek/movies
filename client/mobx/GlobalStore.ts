@@ -1,4 +1,5 @@
 import { action, observable, makeObservable, computed } from 'mobx';
+import type { Movie } from '../types/movie';
 
 class GlobalModel {
   constructor() {
@@ -12,6 +13,7 @@ class GlobalModel {
   @observable authorized = undefined;
   @observable email = undefined;
   @observable ws: WebSocket = undefined;
+  @observable movies: Movie[] = [];
 
   @action
   setAuthorized(authorized) {
@@ -51,6 +53,21 @@ class GlobalModel {
   @computed
   get getFullName() {
     return `${this.secondName} ${this.firstName}`.trim();
+  }
+
+  @action
+  setMovies(movies: Movie[]) {
+    this.movies = movies;
+  }
+
+  @action
+  addMovie(movie: Movie) {
+    this.movies = [movie, ...this.movies];
+  }
+
+  @action
+  deleteMovie(movie: Movie) {
+    this.movies = this.movies.filter((m) => m.id !== movie.id);
   }
 }
 

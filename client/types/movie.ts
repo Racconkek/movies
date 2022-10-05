@@ -11,3 +11,8 @@ export interface Movie {
   comments: Comment[];
   createdAt: Date;
 }
+
+export interface MovieCreate {
+  name: string;
+  description: string;
+}

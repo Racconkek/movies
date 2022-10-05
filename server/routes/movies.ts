@@ -1,58 +1,86 @@
-import express from "express";
-import User from "../database/models/user";
-import Movie from "../database/models/movie";
-import authorizedMiddleware from "../passport/authorizedMiddleware";
-import { Op, Sequelize } from "sequelize";
-import Like from "../database/models/like";
-import Comment from "../database/models/comment";
+import express from 'express';
+import User from '../database/models/user';
+import Movie from '../database/models/movie';
+import authorizedMiddleware from '../passport/authorizedMiddleware';
+import { Op } from 'sequelize';
+import Like from '../database/models/like';
+import Comment from '../database/models/comment';
 
 export default function (app: express.Router): void {
   const router = express.Router();
-  app.use("/movies", router);
+  app.use('/movies', router);
 
-  router.post("/",authorizedMiddleware, async function (req, res) {
+  router.post('/', authorizedMiddleware, async function (req, res) {
     try {
       const { description, name } = req.body;
 
       const user = req.user as User;
-      const video = await Movie.create({
+      const createdMovie = await Movie.create({
         authorId: user.id,
+        author: user,
         name: name,
         description: description,
       });
 
-      res.json(video);
+      const movie = await Movie.findOne({
+        where: {
+          [Op.and]: [
+            {
+              name: {
+                [Op.ne]: '',
+              },
+              id: createdMovie.id,
+            },
+          ],
+        },
+        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+      });
+
+      if (!movie) {
+        return res.sendStatus(404);
+      }
+
+      res.json(movie);
     } catch (e) {
-      console.log("Ошибка в процессе преобразования", e);
+      console.log('Ошибка в процессе преобразования', e);
     }
   });
 
-  router.get("/", authorizedMiddleware, async function (req, res) {
+  router.get('/', authorizedMiddleware, async function (req, res) {
     const movies = await Movie.findAll({
+      include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       where: {
         [Op.and]: [
           {
             name: {
-              [Op.ne]: "",
+              [Op.ne]: '',
             },
           },
         ],
       },
-      order: [["id", "ASC"]],
+      order: [['id', 'ASC']],
     });
+
+    console.log(movies);
 
     res.json(movies);
   });
 
-  router.get("/my", authorizedMiddleware, async function (req, res) {
+  router.get('/my', authorizedMiddleware, async function (req, res) {
     const userId = (req.user as User).id;
 
     try {
       const movies = await Movie.findAll({
+        include: [
+          {
+            model: User,
+            as: 'author'
+          },
+        ],
         where: {
           authorId: userId,
         },
-        order: [["id", "DESC"]],
+        order: [['id', 'DESC']],
       });
 
       res.json(movies);
@@ -62,7 +90,7 @@ export default function (app: express.Router): void {
     }
   });
 
-  router.get("/favourites", authorizedMiddleware, async function (req, res) {
+  router.get('/favourites', authorizedMiddleware, async function (req, res) {
     const userId = (req.user as User).id;
 
     try {
@@ -70,12 +98,12 @@ export default function (app: express.Router): void {
         where: { id: userId },
         include: [
           {
-            association: "likedMovies",
+            association: 'likedMovies',
             where: {
               [Op.and]: [
                 {
                   name: {
-                    [Op.ne]: "",
+                    [Op.ne]: '',
                   },
                 },
               ],
@@ -90,11 +118,17 @@ export default function (app: express.Router): void {
     }
   });
 
-  router.patch("/:movieId", authorizedMiddleware, async function (req, res) {
+  router.patch('/:movieId', authorizedMiddleware, async function (req, res) {
     const userId = (req.user as User).id;
-    const { videoId: movieId } = req.params;
+    const { movieId: movieId } = req.params;
 
     const movie = await Movie.findOne({
+      include: [
+        {
+          model: User,
+          as: 'author'
+        },
+      ],
       where: {
         authorId: userId,
         id: movieId,
@@ -105,10 +139,7 @@ export default function (app: express.Router): void {
       return res.sendStatus(401);
     }
 
-    if (
-      !req.body.name ||
-      !req.body.description
-    ) {
+    if (!req.body.name || !req.body.description) {
       return res.sendStatus(400);
     }
 
@@ -119,7 +150,7 @@ export default function (app: express.Router): void {
     res.json(movie);
   });
 
-  router.delete("/:movieId", authorizedMiddleware, async function (req, res) {
+  router.delete('/:movieId', authorizedMiddleware, async function (req, res) {
     try {
       const userId = (req.user as User).id;
       const { movieId } = req.params;
@@ -144,7 +175,7 @@ export default function (app: express.Router): void {
     }
   });
 
-  router.get("/:movieId", authorizedMiddleware, async (req, res) => {
+  router.get('/:movieId', authorizedMiddleware, async (req, res) => {
     try {
       const { movieId } = req.params;
 
@@ -153,17 +184,13 @@ export default function (app: express.Router): void {
           [Op.and]: [
             {
               name: {
-                [Op.ne]: "",
+                [Op.ne]: '',
               },
               id: movieId,
             },
           ],
         },
-        include: [
-          "usersWhoLike",
-          "author",
-          { association: "comments", include: ["author"] },
-        ],
+        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       });
 
       if (!movie) {
@@ -177,54 +204,46 @@ export default function (app: express.Router): void {
     }
   });
 
-  router.post(
-    "/:movieId/toggleLike",
-    authorizedMiddleware,
-    async (req, res) => {
-      const { movieId } = req.params;
+  router.post('/:movieId/toggleLike', authorizedMiddleware, async (req, res) => {
+    const { movieId } = req.params;
 
-      try {
-        const user = req.user as User;
+    try {
+      const user = req.user as User;
 
-        const entry = await Like.findOne({
-          where: {
-            userId: user.id,
-            videoId: +movieId,
-          },
+      const entry = await Like.findOne({
+        where: {
+          userId: user.id,
+          movieId: +movieId,
+        },
+      });
+
+      if (entry) {
+        await entry.destroy();
+      } else {
+        await Like.create({
+          movieId: +movieId,
+          userId: user.id,
         });
-
-        if (entry) {
-          await entry.destroy();
-        } else {
-          await Like.create({
-            videoId: +movieId,
-            userId: user.id,
-          });
-        }
-
-        const movie = await Movie.findOne({
-          where: {
-            id: movieId,
-          },
-          include: [
-            "usersWhoLike",
-            "author",
-            { association: "comments", include: ["author"] },
-          ],
-        });
-
-        if (!movie) {
-          res.sendStatus(404);
-        }
-        res.json(movie);
-      } catch (e) {
-        console.log(e);
-        return res.sendStatus(400);
       }
-    }
-  );
 
-  router.post("/:movieId/comment", authorizedMiddleware, async (req, res) => {
+      const movie = await Movie.findOne({
+        where: {
+          id: movieId,
+        },
+        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+      });
+
+      if (!movie) {
+        res.sendStatus(404);
+      }
+      res.json(movie);
+    } catch (e) {
+      console.log(e);
+      return res.sendStatus(400);
+    }
+  });
+
+  router.post('/:movieId/comment', authorizedMiddleware, async (req, res) => {
     const { movieId } = req.params;
     const { text } = req.body;
 
@@ -233,7 +252,7 @@ export default function (app: express.Router): void {
 
       const comment = await Comment.create({
         authorId: user.id,
-        videoId: +movieId,
+        movieId: +movieId,
         text,
       });
 
@@ -254,7 +273,7 @@ export default function (app: express.Router): void {
 
       const createdComment = await Comment.findOne({
         where: { id: comment.id },
-        include: ["author"],
+        include: ['author'],
       });
 
       // sendToEveryoneWS({
