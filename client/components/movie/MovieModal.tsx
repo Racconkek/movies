@@ -16,7 +16,7 @@ const MovieModal = ({ show, onClose, onSubmit }: IMovieModalProps) => {
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const value = e.target.value;
-    if (value) {
+    if (value && value.length < 255) {
       setName(value);
     }
   };
@@ -24,7 +24,7 @@ const MovieModal = ({ show, onClose, onSubmit }: IMovieModalProps) => {
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     const value = e.target.value;
-    if (value) {
+    if (value && value.length < 255) {
       setDescription(value);
     }
   };

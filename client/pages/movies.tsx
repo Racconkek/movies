@@ -64,19 +64,19 @@ function MoviesPage() {
       </Head>
       <Container
         display={'flex'}
-        flexDirection={'row'}
+        flexDirection={'column'}
         justifyContent={'space-around'}
         style={{ width: '100%', height: '100%' }}
       >
-        <Block style={{ width: '90%' }}>
-          <PerfectScrollbar style={{ height: '100%', padding: '16px' }}>
-            {isLoading ? 'Загрузка' : GlobalStore.movies.map((m) => <MovieBlock key={m.id} movie={m} />)}
-          </PerfectScrollbar>
-        </Block>
-        <Block style={{ width: '10%', padding: '16px' }}>
+        <Block style={{ height: '10%', padding: '16px' }}>
           <Button size={'medium'} color={'info'} onClick={onClick} fullwidth={false} loading={isCreating}>
             Создать
           </Button>
+        </Block>
+        <Block style={{ height: '90%' }}>
+          <PerfectScrollbar style={{ height: '100%', padding: '16px' }}>
+            {isLoading ? 'Загрузка' : GlobalStore.movies.map((m) => <MovieBlock key={m.id} movie={m} />)}
+          </PerfectScrollbar>
         </Block>
       </Container>
       {openedModal && (
