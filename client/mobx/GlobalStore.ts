@@ -1,5 +1,7 @@
-import { action, observable, makeObservable, computed } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import type { Movie } from '../types/movie';
+import { FilterType, SortType } from './constants';
+import { filteredMovies, sortMovies } from './helpers';
 
 class GlobalModel {
   constructor() {
@@ -13,7 +15,9 @@ class GlobalModel {
   @observable authorized: boolean | undefined = undefined;
   @observable email: string | undefined = undefined;
   @observable ws: WebSocket = undefined;
-  @observable movies: Movie[] = [];
+  @observable _movies: Movie[] = [];
+  @observable moviesFilter: FilterType = FilterType.All;
+  @observable moviesSort: SortType = SortType.CreatedAt;
 
   @action
   setAuthorized(authorized) {
@@ -50,6 +54,16 @@ class GlobalModel {
     this.ws = ws;
   }
 
+  @action
+  setFilter(filter: FilterType) {
+    this.moviesFilter = filter;
+  }
+
+  @action
+  setSort(sort: SortType) {
+    this.moviesSort = sort;
+  }
+
   @computed
   get getFullName() {
     return this.secondName && this.firstName ? `${this.secondName} ${this.firstName}`.trim() : '';
@@ -57,27 +71,23 @@ class GlobalModel {
 
   @action
   setMovies(movies: Movie[]) {
-    this.movies = movies;
+    this._movies = movies;
   }
 
   @action
   addMovie(movie: Movie) {
-    this.movies = [movie, ...this.movies];
+    this._movies = [movie, ...this._movies];
   }
 
   @action
   deleteMovie(movie: Movie) {
-    this.movies = this.movies.filter((m) => m.id !== movie.id);
+    this._movies = this._movies.filter((m) => m.id !== movie.id);
   }
 
   @computed
-  get moviesSortedByCreation() {
-    return this.movies.slice().sort((m1, m2) => new Date(m2.createdAt).getTime() - new Date(m1.createdAt).getTime());
-  }
-
-  @computed
-  get moviesSortedByLikes() {
-    return this.movies.slice().sort((m1, m2) => m2.usersWhoLike.length - m1.usersWhoLike.length);
+  get movies() {
+    const movies = this._movies.slice();
+    return sortMovies(this.moviesSort, filteredMovies(this.moviesFilter, movies));
   }
 }
 

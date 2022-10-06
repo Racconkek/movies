@@ -1,0 +1,13 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 32px;
+    gap: 24px;
+}
+
+.sortRadios {
+    display: flex;
+    flex-direction: column;
+}
