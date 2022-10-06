@@ -1,7 +1,8 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import type { Movie } from '../types/movie';
-import { FilterType, SortType } from './constants';
+import { FilterType, SortDirection, SortType } from './constants';
 import { filteredMovies, sortMovies } from './helpers';
+import type { Sort } from './types';
 
 class GlobalModel {
   constructor() {
@@ -17,7 +18,7 @@ class GlobalModel {
   @observable ws: WebSocket = undefined;
   @observable _movies: Movie[] = [];
   @observable moviesFilter: FilterType = FilterType.All;
-  @observable moviesSort: SortType = SortType.CreatedAt;
+  @observable moviesSort: Sort = { type: SortType.CreatedAt, direction: SortDirection.Asc };
 
   @action
   setAuthorized(authorized) {
@@ -60,7 +61,7 @@ class GlobalModel {
   }
 
   @action
-  setSort(sort: SortType) {
+  setSort(sort: Sort) {
     this.moviesSort = sort;
   }
 

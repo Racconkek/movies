@@ -1,6 +1,11 @@
 export enum SortType {
   CreatedAt = 'createdAt',
-  Likes = 'usersWhoLike'
+  Likes = 'usersWhoLike',
+}
+
+export enum SortDirection {
+  Asc = 'asc',
+  Desc = 'desc',
 }
 
 export enum FilterType {
@@ -8,3 +13,8 @@ export enum FilterType {
   Favourites = 'fav',
   My = 'my',
 }
+
+export const OppositeDirection: Record<SortDirection, SortDirection> = {
+  [SortDirection.Asc]: SortDirection.Desc,
+  [SortDirection.Desc]: SortDirection.Asc,
+};

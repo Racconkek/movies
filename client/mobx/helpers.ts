@@ -1,21 +1,34 @@
 import { Movie } from '../types/movie';
-import { FilterType, SortType } from './constants';
+import { FilterType, OppositeDirection, SortDirection, SortType } from './constants';
 import GlobalStore from './GlobalStore';
+import { Sort } from './types';
 
-export const getMoviesSortedByCreation = (movies: Movie[]) => {
-  return movies.slice().sort((m1, m2) => new Date(m2.createdAt).getTime() - new Date(m1.createdAt).getTime());
+const getDateNumber = (stringDate: string) => new Date(stringDate).getTime();
+
+export const getMoviesSortedByCreation = (movies: Movie[], direction: SortDirection) => {
+  return movies
+    .slice()
+    .sort((m1, m2) =>
+      direction == SortDirection.Asc
+        ? getDateNumber(m2.createdAt) - getDateNumber(m1.createdAt)
+        : getDateNumber(m1.createdAt) - getDateNumber(m2.createdAt)
+    );
 };
 
-export const getMoviesSortedByLikes = (movies: Movie[]) => {
-  return movies.sort((m1, m2) => m2.usersWhoLike.length - m1.usersWhoLike.length);
+export const getMoviesSortedByLikes = (movies: Movie[], direction: SortDirection) => {
+  return movies.sort((m1, m2) =>
+    direction === SortDirection.Asc
+      ? m2.usersWhoLike.length - m1.usersWhoLike.length
+      : m1.usersWhoLike.length - m2.usersWhoLike.length
+  );
 };
 
-export const sortMovies = (moviesSort: SortType, movies: Movie[]) => {
-  switch (moviesSort) {
+export const sortMovies = (moviesSort: Sort, movies: Movie[]) => {
+  switch (moviesSort.type) {
     case SortType.CreatedAt:
-      return getMoviesSortedByCreation(movies);
+      return getMoviesSortedByCreation(movies, moviesSort.direction);
     case SortType.Likes:
-      return getMoviesSortedByLikes(movies);
+      return getMoviesSortedByLikes(movies, moviesSort.direction);
   }
 };
 
@@ -36,4 +49,12 @@ export const filteredMovies = (moviesFilter: FilterType, movies: Movie[]) => {
     case FilterType.Favourites:
       return getMoviesFilteredByFav(movies);
   }
+};
+
+export const getDirection = (prevState: Sort, nextType: SortType) => {
+  if (prevState.type === nextType) {
+    return OppositeDirection[prevState.direction];
+  }
+
+  return SortDirection.Asc;
 };

@@ -9,6 +9,7 @@
 
 .sortBlock {
     width: 10%;
+    min-width: 200px;
 }
 
 .contentBlock {
@@ -31,6 +32,7 @@
   .root {
     flex-direction: column;
     gap: 1px;
+    padding: 0 14px;
   }
   .sortBlock {
     width: 100%;

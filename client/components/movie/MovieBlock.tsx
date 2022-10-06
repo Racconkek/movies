@@ -23,7 +23,7 @@ const MovieBlock = ({ movie }: IMovieBlockProps) => {
     <Box>
       <Media>
         <Media.Item display={'flex'} flexDirection={'column'}>
-          <Heading>{movie.name}</Heading>
+          <Heading size={3}>{movie.name}</Heading>
           <Heading subtitle>
             {movie.author.firstName} {movie.author.secondName}
           </Heading>

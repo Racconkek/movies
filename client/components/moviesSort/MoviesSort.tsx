@@ -5,6 +5,7 @@ import GlobalStore from '../../mobx/GlobalStore';
 import { SortType } from '../../mobx/constants';
 import React from 'react';
 import styles from './MoviesSort.module.css';
+import { getDirection } from '../../mobx/helpers';
 
 const Component = () => {
   return (
@@ -12,14 +13,26 @@ const Component = () => {
       <Menu.List title={'Сортировать по'}>
         <div style={{ marginLeft: '-12px' }}>
           <MoviesSortItem
-            active={GlobalStore.moviesSort === SortType.CreatedAt}
-            onClick={() => GlobalStore.setSort(SortType.CreatedAt)}
+            active={GlobalStore.moviesSort.type === SortType.CreatedAt}
+            onClick={() =>
+              GlobalStore.setSort({
+                type: SortType.CreatedAt,
+                direction: getDirection(GlobalStore.moviesSort, SortType.CreatedAt),
+              })
+            }
             content={'Дате создания'}
+            sortDirection={GlobalStore.moviesSort.direction}
           />
           <MoviesSortItem
-            active={GlobalStore.moviesSort === SortType.Likes}
-            onClick={() => GlobalStore.setSort(SortType.Likes)}
+            active={GlobalStore.moviesSort.type === SortType.Likes}
+            onClick={() =>
+              GlobalStore.setSort({
+                type: SortType.Likes,
+                direction: getDirection(GlobalStore.moviesSort, SortType.Likes),
+              })
+            }
             content={'Количеству лайков'}
+            sortDirection={GlobalStore.moviesSort.direction}
           />
         </div>
       </Menu.List>
