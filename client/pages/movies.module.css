@@ -7,7 +7,17 @@
     gap: 24px;
 }
 
-.sortRadios {
-    display: flex;
+.sortBlock {
+    width: 10%;
+}
+
+@media (max-width: 1023px) {
+  .root {
     flex-direction: column;
+    gap: 1px;
+  }
+  .sortBlock {
+    width: 100%;
+    padding: 0 16px;
+  }
 }

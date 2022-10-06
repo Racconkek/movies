@@ -32,15 +32,15 @@ function Header(props: {
             </Navbar.Item>
           ))}
         </Navbar.Container>
+        <Navbar.Container align={'right'}>
+          {authorized && <CreationButton />}
+          {authorized ? (
+            <Navbar.Item href="/api/user/logout">Выйти</Navbar.Item>
+          ) : (
+            <Navbar.Item href="/api/user/oauth/google">Войти</Navbar.Item>
+          )}
+        </Navbar.Container>
       </Navbar.Menu>
-      <Navbar.Container align={'right'}>
-        {authorized && <CreationButton />}
-        {authorized ? (
-          <Navbar.Item href="/api/user/logout">Выйти</Navbar.Item>
-        ) : (
-          <Navbar.Item href="/api/user/oauth/google">Войти</Navbar.Item>
-        )}
-      </Navbar.Container>
     </Navbar>
   );
 }
