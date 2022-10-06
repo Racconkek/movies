@@ -6,7 +6,7 @@ class GlobalModel {
     makeObservable(this);
   }
 
-  @observable id: string | undefined = undefined;
+  @observable id: number | undefined = undefined;
   @observable avatar: string | undefined = undefined;
   @observable firstName: string | undefined = undefined;
   @observable secondName: string | undefined = undefined;
