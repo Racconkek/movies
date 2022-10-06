@@ -11,6 +11,22 @@
     width: 10%;
 }
 
+.contentBlock {
+    width: 90%;
+}
+
+.filterBlock {
+    padding: 4px 16px;
+}
+
+.listBlock {
+    height: 90%;
+}
+
+.scrollBar {
+    padding: 16px;
+}
+
 @media (max-width: 1023px) {
   .root {
     flex-direction: column;

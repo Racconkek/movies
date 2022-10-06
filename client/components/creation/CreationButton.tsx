@@ -35,7 +35,7 @@ export const CreationButton = () => {
 
   return (
     <div className={styles.root}>
-      <Button size={'small'} color={'info'} onClick={onClick} loading={isCreating}>
+      <Button color={'grey-dark'} colorVariant={'light'} onClick={onClick} loading={isCreating}>
         Создать
       </Button>
       {openedModal && (

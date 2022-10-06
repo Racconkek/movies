@@ -42,12 +42,12 @@ function MoviesPage() {
         <Block className={styles.sortBlock}>
           <MoviesSort />
         </Block>
-        <Block style={{ width: '90%' }}>
-          <Block style={{ padding: '0 16px' }}>
+        <Block className={styles.contentBlock}>
+          <Block className={styles.filterBlock}>
             <MoviesFilter />
           </Block>
-          <Block style={{ height: '90%' }}>
-            <PerfectScrollbar style={{ padding: '16px' }}>
+          <Block className={styles.listBlock}>
+            <PerfectScrollbar className={styles.scrollBar}>
               {isLoading ? 'Загрузка' : GlobalStore.movies.map((m) => <MovieBlock key={m.id} movie={m} />)}
             </PerfectScrollbar>
           </Block>
