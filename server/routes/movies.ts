@@ -61,8 +61,6 @@ export default function (app: express.Router): void {
       order: [['id', 'ASC']],
     });
 
-    console.log(movies);
-
     res.json(movies);
   });
 
