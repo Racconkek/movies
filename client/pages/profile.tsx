@@ -17,9 +17,9 @@ function ProfilePage(): ReactElement {
               <Image size={128} alt="avatar" src={GlobalStore.avatar} rounded />
             </Media.Item>
             <Media.Item>
-              <Heading>{GlobalStore.getFullName}</Heading>
+              <Heading>{GlobalStore.getFullName ?? ''}</Heading>
               <Heading subtitle size={6}>
-                {GlobalStore.email}
+                {GlobalStore.email ?? ''}
               </Heading>
             </Media.Item>
           </Media>

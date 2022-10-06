@@ -9,7 +9,7 @@ export interface Movie {
   name: string;
   description: string;
   comments: Comment[];
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface MovieCreate {

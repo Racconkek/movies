@@ -6,12 +6,12 @@ class GlobalModel {
     makeObservable(this);
   }
 
-  @observable id = undefined;
-  @observable avatar = undefined;
-  @observable firstName = undefined;
-  @observable secondName = undefined;
-  @observable authorized = undefined;
-  @observable email = undefined;
+  @observable id: string | undefined = undefined;
+  @observable avatar: string | undefined = undefined;
+  @observable firstName: string | undefined = undefined;
+  @observable secondName: string | undefined = undefined;
+  @observable authorized: boolean | undefined = undefined;
+  @observable email: string | undefined = undefined;
   @observable ws: WebSocket = undefined;
   @observable movies: Movie[] = [];
 
@@ -52,7 +52,7 @@ class GlobalModel {
 
   @computed
   get getFullName() {
-    return `${this.secondName} ${this.firstName}`.trim();
+    return this.secondName && this.firstName ? `${this.secondName} ${this.firstName}`.trim() : '';
   }
 
   @action
@@ -68,6 +68,16 @@ class GlobalModel {
   @action
   deleteMovie(movie: Movie) {
     this.movies = this.movies.filter((m) => m.id !== movie.id);
+  }
+
+  @computed
+  get moviesSortedByCreation() {
+    return this.movies.slice().sort((m1, m2) => new Date(m2.createdAt).getTime() - new Date(m1.createdAt).getTime());
+  }
+
+  @computed
+  get moviesSortedByLikes() {
+    return this.movies.slice().sort((m1, m2) => m2.usersWhoLike.length - m1.usersWhoLike.length);
   }
 }
 
