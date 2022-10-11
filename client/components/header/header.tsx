@@ -3,6 +3,7 @@ import { Navbar } from 'react-bulma-components';
 import styles from './header.module.css';
 import { cx } from '@emotion/css';
 import { CreationButton } from '../creation/CreationButton';
+import LogoIcon from './popcorn.svg';
 
 function Header(props: {
   authorized: boolean;
@@ -16,7 +17,7 @@ function Header(props: {
     <Navbar transparent size={'large'} fixed={'top'} active={isActive}>
       <Navbar.Brand>
         <Navbar.Item href={'/'} key={'main'}>
-          Главная
+          <LogoIcon style={{ width: '40px', height: '40px' }} />
         </Navbar.Item>
         <Navbar.Burger onClick={() => setIsActive(!isActive)} />
       </Navbar.Brand>
