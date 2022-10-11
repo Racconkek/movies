@@ -12,7 +12,14 @@ interface IMovieModalProps {
   submitText?: string;
 }
 
-const MovieModal = ({ show, onClose, onSubmit, name: prevName, description: prevDescription, submitText }: IMovieModalProps) => {
+const MovieModal = ({
+  show,
+  onClose,
+  onSubmit,
+  name: prevName,
+  description: prevDescription,
+  submitText,
+}: IMovieModalProps) => {
   const [name, setName] = useState<string>(prevName ?? '');
   const [description, setDescription] = useState<string>(prevDescription ?? '');
 
@@ -59,7 +66,7 @@ const MovieModal = ({ show, onClose, onSubmit, name: prevName, description: prev
           </Modal.Card.Body>
           <Modal.Card.Footer>
             <Button
-              color={'info'}
+              color={'grey-dark'}
               onClick={() => {
                 onSubmit({ name, description });
                 onClose();

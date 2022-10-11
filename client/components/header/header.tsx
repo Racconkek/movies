@@ -14,7 +14,7 @@ function Header(props: {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
-    <Navbar transparent size={'large'} fixed={'top'} active={isActive}>
+    <Navbar transparent size={'large'} fixed={'top'} active={isActive} style={{ backgroundColor: '#F6F6F6' }}>
       <Navbar.Brand>
         <Navbar.Item href={'/'} key={'main'}>
           <LogoIcon style={{ width: '40px', height: '40px' }} />
@@ -35,11 +35,7 @@ function Header(props: {
         </Navbar.Container>
         <Navbar.Container align={'right'}>
           {authorized && <CreationButton />}
-          {authorized ? (
-            <Navbar.Item href="/api/user/logout">Выйти</Navbar.Item>
-          ) : (
-            <Navbar.Item href="/api/user/oauth/google">Войти</Navbar.Item>
-          )}
+          {authorized && <Navbar.Item href="/api/user/logout">Выйти</Navbar.Item>}
         </Navbar.Container>
       </Navbar.Menu>
     </Navbar>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { cx } from '@emotion/css';
 import styles from './MoviesSortItem.module.css';
 import { observer } from 'mobx-react';
 import { IconSortAscending, IconSortDescending } from '@tabler/icons';
@@ -14,18 +13,18 @@ export interface IMoviesSortItemProps {
 
 export const Component = ({ active, content, onClick, sortDirection }: IMoviesSortItemProps) => {
   return (
-    <div className={cx(styles.root, active && styles.active)} onClick={onClick}>
+    <div className={styles.root} onClick={onClick}>
       {content}
       <div>
         {active ? (
           sortDirection === SortDirection.Asc ? (
-            <IconSortAscending />
+            <IconSortAscending className={styles.activeIcon} />
           ) : (
-            <IconSortDescending />
+            <IconSortDescending className={styles.activeIcon} />
           )
         ) : (
-          <IconSortAscending />
-        )}{' '}
+          <IconSortAscending className={styles.icon} />
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,18 @@
+.root {
+    cursor: pointer;
+    color: #4a4a4a;
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding: 0.5em 1em;
+}
+
+.root:hover {
+    border-bottom-color: #d69d38;
+}
+
+.active {
+    border-bottom-color: #d69d38;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}

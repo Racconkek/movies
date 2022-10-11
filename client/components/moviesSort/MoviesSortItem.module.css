@@ -1,8 +1,7 @@
 .root {
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius: 4px;
-    background-color: #fff;
+    border-radius: 10px;
     min-height: 32px;
     margin: 4px 0;
     padding: 10px;
@@ -11,6 +10,10 @@
     justify-content: space-between;
 }
 
-.active {
-    border-color: #dbdbdb;
+.icon {
+    color: #7a7a7a;
+}
+
+.activeIcon {
+    color: #d69d38;
 }

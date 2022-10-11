@@ -57,6 +57,10 @@ function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string
           GlobalStore.authorized
             ? [
                 {
+                  title: 'Фильмы',
+                  url: '/movies',
+                },
+                {
                   title: `Профиль`,
                   url: '/profile',
                 },
