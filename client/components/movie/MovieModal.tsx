@@ -4,14 +4,17 @@ import { observer } from 'mobx-react';
 import { useState } from 'react';
 
 interface IMovieModalProps {
+  name?: string;
+  description?: string;
   show?: boolean;
   onClose?: () => void;
   onSubmit?: (payload: MovieCreate) => void;
+  submitText?: string;
 }
 
-const MovieModal = ({ show, onClose, onSubmit }: IMovieModalProps) => {
-  const [name, setName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
+const MovieModal = ({ show, onClose, onSubmit, name: prevName, description: prevDescription, submitText }: IMovieModalProps) => {
+  const [name, setName] = useState<string>(prevName ?? '');
+  const [description, setDescription] = useState<string>(prevDescription ?? '');
 
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -62,7 +65,7 @@ const MovieModal = ({ show, onClose, onSubmit }: IMovieModalProps) => {
                 onClose();
               }}
             >
-              Создать
+              {submitText ?? 'Создать'}
             </Button>
             <Button color={'white'} onClick={onClose}>
               Отмена

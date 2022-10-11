@@ -39,14 +39,14 @@ function MoviesPage() {
         <title>Фильмецы</title>
       </Head>
       <div className={styles.root}>
-        <Block className={styles.sortBlock}>
+        <Block key={'sortBlock'} className={styles.sortBlock}>
           <MoviesSort />
         </Block>
-        <Block className={styles.contentBlock}>
-          <Block className={styles.filterBlock}>
+        <Block key={'contentBlock'} className={styles.contentBlock}>
+          <Block key={'filterBlock'} className={styles.filterBlock}>
             <MoviesFilter />
           </Block>
-          <Block className={styles.listBlock}>
+          <Block key={'listBlock'} className={styles.listBlock}>
             <PerfectScrollbar className={styles.scrollBar}>
               {isLoading ? 'Загрузка' : GlobalStore.movies.map((m) => <MovieBlock key={m.id} movie={m} />)}
             </PerfectScrollbar>

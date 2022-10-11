@@ -3,12 +3,14 @@ import type { Movie } from '../types/movie';
 import { FilterType, SortDirection, SortType } from './constants';
 import { filteredMovies, sortMovies } from './helpers';
 import type { Sort } from './types';
+import type User from '../types/user';
 
 class GlobalModel {
   constructor() {
     makeObservable(this);
   }
 
+  @observable currentUser: User | undefined = undefined;
   @observable id: number | undefined = undefined;
   @observable avatar: string | undefined = undefined;
   @observable firstName: string | undefined = undefined;
@@ -19,6 +21,11 @@ class GlobalModel {
   @observable _movies: Movie[] = [];
   @observable moviesFilter: FilterType = FilterType.All;
   @observable moviesSort: Sort = { type: SortType.CreatedAt, direction: SortDirection.Asc };
+
+  @action
+  setCurrentUser(user: User) {
+    this.currentUser = user;
+  }
 
   @action
   setAuthorized(authorized) {
@@ -83,6 +90,12 @@ class GlobalModel {
   @action
   deleteMovie(movie: Movie) {
     this._movies = this._movies.filter((m) => m.id !== movie.id);
+  }
+
+  @action
+  updateMovie(movie: Movie) {
+    this.deleteMovie(movie);
+    this.addMovie(movie);
   }
 
   @computed

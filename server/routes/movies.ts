@@ -69,12 +69,7 @@ export default function (app: express.Router): void {
 
     try {
       const movies = await Movie.findAll({
-        include: [
-          {
-            model: User,
-            as: 'author'
-          },
-        ],
+        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
         where: {
           authorId: userId,
         },
@@ -121,12 +116,7 @@ export default function (app: express.Router): void {
     const { movieId: movieId } = req.params;
 
     const movie = await Movie.findOne({
-      include: [
-        {
-          model: User,
-          as: 'author'
-        },
-      ],
+      include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       where: {
         authorId: userId,
         id: movieId,

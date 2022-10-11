@@ -18,7 +18,6 @@ function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string
     } catch (e) {
       console.error(e);
     }
-    console.log(myInfo);
 
     if (!myInfo) {
       return;
@@ -42,6 +41,7 @@ function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string
     GlobalStore.setSecondName(myInfo.secondName);
     GlobalStore.setId(myInfo.id);
     GlobalStore.setEmail(myInfo.email);
+    GlobalStore.setCurrentUser(myInfo);
     // GlobalStore.setWs(ws);
   }
 
