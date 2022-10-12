@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { updateMovie } from '../../api/movieApi';
 import GlobalStore from '../../mobx/GlobalStore';
 import MovieModal from '../movie/MovieModal';
-import { IconPencil } from '@tabler/icons';
 import styles from './EditButton.module.css';
+import { Button } from 'react-bulma-components';
 
 export interface IEditButtonProps {
   movie: Movie;
@@ -35,8 +35,8 @@ export const EditButton = ({ movie }: IEditButtonProps) => {
   };
 
   return (
-    <div className={styles.root}>
-      <IconPencil onClick={onClick} />
+    <Button className={styles.root} onClick={onClick}>
+      <div>Редактировать</div>
       {openedModal && (
         <MovieModal
           show={!!openedModal}
@@ -47,6 +47,6 @@ export const EditButton = ({ movie }: IEditButtonProps) => {
           submitText={'Сохранить'}
         />
       )}
-    </div>
+    </Button>
   );
 };

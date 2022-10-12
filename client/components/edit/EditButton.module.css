@@ -1,13 +1,20 @@
 .root {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px;
-    border-radius: 4px;
+    background-color: #FCD99A;
+    border-radius: 15px;
+    border: none;
+    max-height: 35px;
 }
 
 .root:hover {
-    background-color: #f5f5f5;
+    border: none;
+    background-color: #FAC870;
+}
+
+.root:active {
+    border: none;
+    background-color: #F0B347;
+}
+
+.root:focus {
+    border: none;
 }

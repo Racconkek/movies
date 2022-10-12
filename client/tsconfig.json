@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "lib": ["dom", "es2018"],
+    "lib": [
+      "dom",
+      "es2018"
+    ],
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
@@ -21,8 +24,15 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
