@@ -33,7 +33,7 @@ export default function (app: express.Router): void {
             },
           ],
         },
-        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+        include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       });
 
       if (!movie) {
@@ -48,7 +48,7 @@ export default function (app: express.Router): void {
 
   router.get('/', authorizedMiddleware, async function (req, res) {
     const movies = await Movie.findAll({
-      include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+      include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       where: {
         [Op.and]: [
           {
@@ -69,7 +69,7 @@ export default function (app: express.Router): void {
 
     try {
       const movies = await Movie.findAll({
-        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+        include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
         where: {
           authorId: userId,
         },
@@ -116,7 +116,7 @@ export default function (app: express.Router): void {
     const { movieId: movieId } = req.params;
 
     const movie = await Movie.findOne({
-      include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+      include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }, 'tags'],
       where: {
         authorId: userId,
         id: movieId,
@@ -127,12 +127,13 @@ export default function (app: express.Router): void {
       return res.sendStatus(401);
     }
 
-    if (!req.body.name || !req.body.description) {
+    if (!req.body.name || !req.body.description || !req.body.tags) {
       return res.sendStatus(400);
     }
 
     movie.name = req.body.name;
     movie.description = req.body.description;
+    movie.tags = req.body.tags;
     await movie.save();
 
     res.json(movie);
@@ -178,7 +179,7 @@ export default function (app: express.Router): void {
             },
           ],
         },
-        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+        include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       });
 
       if (!movie) {
@@ -218,7 +219,7 @@ export default function (app: express.Router): void {
         where: {
           id: movieId,
         },
-        include: ['usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+        include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       });
 
       if (!movie) {

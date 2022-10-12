@@ -3,6 +3,7 @@ import Like from "./models/like";
 import Comment from "./models/comment";
 import User from "./models/user";
 import Movie from "./models/movie";
+import Tag from "./models/tag";
 
 export default async function (): Promise<void> {
     const sequelize = new Sequelize(process.env.DB_URI)
@@ -13,6 +14,6 @@ export default async function (): Promise<void> {
         console.log('Невозможно выполнить подключение к БД: ', e)
         throw e;
     }
-    sequelize.addModels([Comment, User, Movie, Like]);
+    sequelize.addModels([Comment, User, Movie, Like, Tag]);
     await sequelize.sync({ force: false });
 }

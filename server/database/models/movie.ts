@@ -15,6 +15,7 @@ import {
 import Like from "./like";
 import Comment from "./comment";
 import User from "./user";
+import Tag from "./tag";
 
 @Table
 class Movie extends Model {
@@ -40,6 +41,14 @@ class Movie extends Model {
     hooks: true,
   })
   comments: Comment[];
+
+  @HasMany(() => Tag, {
+    foreignKey: "movieId",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+    hooks: true,
+  })
+  tags: Tag[];
 
   @AllowNull(false)
   @Default("")
