@@ -17,6 +17,12 @@
     min-width: 130px;
 }
 
+.imageInner {
+    height: 120px;
+    width: 120px;
+    border-radius: 15px;
+}
+
 .info {
     height: 100%;
     display: flex;
@@ -47,6 +53,13 @@
 .description {
     word-break: break-word;
     min-height: 25px;
+}
+
+.tags {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .creationInfo {

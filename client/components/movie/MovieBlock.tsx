@@ -6,10 +6,9 @@ import { toggleLike } from '../../api/movieApi';
 import { observer } from 'mobx-react';
 import styles from './MovieBlock.module.css';
 import { EditButton } from '../edit/EditButton';
-import rect4 from './images/Rectangle 4.png';
-import Image from 'next/image';
 import { DateHelper } from '../../helpers/DateHelper';
 import React from 'react';
+import { TagBlock } from './TagBlock';
 
 export interface IMovieBlockProps {
   movie: Movie;
@@ -32,15 +31,18 @@ const MovieBlock = ({ movie }: IMovieBlockProps) => {
       .catch(console.log);
   };
 
+  const shouldRenderDescription = movie.description !== '' || (movie.description === '' && movie.tags.length === 0);
+  const imageColor = movie.tags[0]?.color ?? '#FCD99A';
+
   return (
     <Box className={styles.root}>
       <Media className={styles.inner}>
         <Media.Item className={styles.image}>
-          <Image src={rect4} />
+          <div className={styles.imageInner} style={{ backgroundColor: imageColor }} />
         </Media.Item>
         <Media.Item className={styles.info}>
           <Media.Item className={styles.header}>
-            <Heading style={{ marginBottom: '8px', fontSize: 24 }} size={4}>
+            <Heading style={{ marginBottom: '0', fontSize: 24 }} size={4}>
               {movie.name}
             </Heading>
             <Media.Item className={styles.likeAction} onClick={onLikeClick}>
@@ -60,8 +62,14 @@ const MovieBlock = ({ movie }: IMovieBlockProps) => {
               </div>
             </Media.Item>
           </Media.Item>
-          <Media.Item className={styles.description}>{movie.description}</Media.Item>
-          <Media.Item>{movie.tags.map((t) => t.name)}</Media.Item>
+          {shouldRenderDescription && <Media.Item className={styles.description}>{movie.description}</Media.Item>}
+          {movie.tags.length > 0 && (
+            <Media.Item className={styles.tags}>
+              {movie.tags.map((t) => (
+                <TagBlock key={t.id} tag={t} />
+              ))}
+            </Media.Item>
+          )}
           <Media.Item className={styles.footer}>
             <Media.Item className={styles.creationInfo}>
               <div className={styles.authorInfo}>

@@ -25,22 +25,24 @@ export const colourStyles: StylesConfig<Tag, true> = {
     };
   },
   multiValue: (styles, { data }) => {
-    const color = chroma(data.color);
     return {
       ...styles,
-      backgroundColor: color.alpha(0.1).css(),
+      borderRadius: 8,
+      backgroundColor: data.color,
     };
   },
-  multiValueLabel: (styles, { data }) => ({
-    ...styles,
-    color: data.color,
-  }),
+  // multiValueLabel: (styles, { data }) => ({
+  //   ...styles,
+  //   color: data.color,
+  // }),
   multiValueRemove: (styles, { data }) => ({
     ...styles,
+    cursor: 'pointer',
     color: data.color,
     ':hover': {
+      borderRadius: 8,
       backgroundColor: data.color,
-      color: 'white',
+      color: 'black',
     },
   }),
 };

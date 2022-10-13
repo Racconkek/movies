@@ -128,12 +128,12 @@ export default function (app: express.Router): void {
       return res.sendStatus(401);
     }
 
-    if (!req.body.name || !req.body.description || !req.body.tags) {
-      return res.sendStatus(400);
-    }
+    // if (!req.body.name || !req.body.description) {
+    //   return res.sendStatus(400);
+    // }
 
-    movie.name = req.body.name;
-    movie.description = req.body.description;
+    movie.name = req.body.name ?? 'Новый фильм';
+    movie.description = req.body.description ?? '';
     await movie.$set('tags', req.body.tags)
     await movie.save();
 
