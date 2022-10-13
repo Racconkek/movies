@@ -1,6 +1,7 @@
 .root {
     width: 100%;
     border-radius: 15px;
+    padding: 16px;
 }
 
 .inner {
@@ -79,4 +80,14 @@
 
 .creationDate {
     opacity: 0.5;
+}
+
+@media (max-width: 1023px) {
+    .header {
+        flex-direction: column;
+    }
+    .likeAction {
+        justify-content: flex-start;
+        padding-top: 8px;
+    }
 }

@@ -5,6 +5,7 @@ import GlobalStore from '../../mobx/GlobalStore';
 import MovieModal from '../movie/MovieModal';
 import styles from './EditButton.module.css';
 import { Button } from 'react-bulma-components';
+import { IconPencil } from "@tabler/icons";
 
 export interface IEditButtonProps {
   movie: Movie;
@@ -33,7 +34,7 @@ export const EditButton = ({ movie }: IEditButtonProps) => {
   return (
     <>
       <Button className={styles.root} onClick={onOpen}>
-        <div>Редактировать</div>
+        <IconPencil />
       </Button>
       {isOpenedModal && (
         <MovieModal

@@ -19,15 +19,14 @@ export default async function (): Promise<void> {
   await sequelize.sync({ force: false });
 
   // await Tag.sync({ force: true });
-  // await Tag.create({ authorId: 1, name: 'Ужосы', color: '#A09DA1' });
-  // await Tag.create({ authorId: 1, name: 'Боевик', color: '#ef979e' });
-  // await Tag.create({ authorId: 1, name: 'Драма', color: '#97ecef' });
-  // await Tag.create({ authorId: 1, name: 'Мелодрама', color: '#ef97e8' });
-  // await Tag.create({ authorId: 1, name: 'Комедия', color: '#e3dd7f' });
-  // await Tag.create({ authorId: 1, name: 'Научная фантастика', color: '#a47fe3' });
-  // await Tag.create({ authorId: 1, name: 'Фэнтези', color: '#98e37f' });
-  // await Tag.create({ authorId: 1, name: 'Детектив', color: '#476294' });
-  // await Tag.create({ authorId: 1, name: 'Трагедия', color: '#8c4794' });
-  // await Tag.create({ authorId: 1, name: 'Приключенческий', color: '#e5c089' });
-  // await LikeUserVideo.create({ userId: 2, videoId: 2 });
+  // await Tag.create({ authorId: 1, name: 'Ужасы', color: '#D9D9D9' });
+  // await Tag.create({ authorId: 1, name: 'Боевик', color: '#F7C0C0' });
+  // await Tag.create({ authorId: 1, name: 'Драма', color: '#BFEDF0' });
+  // await Tag.create({ authorId: 1, name: 'Мелодрама', color: '#FFC9ED' });
+  // await Tag.create({ authorId: 1, name: 'Комедия', color: '#FDFFAE' });
+  // await Tag.create({ authorId: 1, name: 'Научная фантастика', color: '#EBB4FF' });
+  // await Tag.create({ authorId: 1, name: 'Фэнтези', color: '#FFE7AA' });
+  // await Tag.create({ authorId: 1, name: 'Детектив', color: '#C6C8FE' });
+  // await Tag.create({ authorId: 1, name: 'Трагедия', color: '#DFCCF1' });
+  // await Tag.create({ authorId: 1, name: 'Приключения', color: '#C5F2BE' });
 }

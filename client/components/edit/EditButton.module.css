@@ -1,5 +1,5 @@
 .root {
-    background-color: #FCD99A;
+    /*background-color: #FCD99A;*/
     border-radius: 15px;
     border: none;
     max-height: 35px;
@@ -7,12 +7,12 @@
 
 .root:hover {
     border: none;
-    background-color: #FAC870;
+    /*background-color: #FAC870;*/
 }
 
 .root:active {
     border: none;
-    background-color: #F0B347;
+    /*background-color: #F0B347;*/
 }
 
 .root:focus {

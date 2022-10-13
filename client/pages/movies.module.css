@@ -34,10 +34,19 @@
   .root {
     flex-direction: column;
     gap: 1px;
-    padding: 0 14px;
+    padding: 0;
   }
   .sortBlock {
     width: 100%;
-    padding: 0 16px;
+    padding: 0 24px;
+  }
+  .contentBlock {
+    width: 100%;
+  }
+  .listBlock {
+    height: 20%;
+  }
+  .scrollBar {
+    padding: 8px;
   }
 }

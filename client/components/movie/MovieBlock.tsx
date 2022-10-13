@@ -32,14 +32,14 @@ const MovieBlock = ({ movie }: IMovieBlockProps) => {
   };
 
   const shouldRenderDescription = movie.description !== '' || (movie.description === '' && movie.tags.length === 0);
-  const imageColor = movie.tags[0]?.color ?? '#FCD99A';
+  // const imageColor = movie.tags[0]?.color ?? '#FCD99A';
 
   return (
     <Box className={styles.root}>
       <Media className={styles.inner}>
-        <Media.Item className={styles.image}>
-          <div className={styles.imageInner} style={{ backgroundColor: imageColor }} />
-        </Media.Item>
+        {/*<Media.Item className={styles.image}>*/}
+        {/*  <div className={styles.imageInner} style={{ backgroundColor: imageColor }} />*/}
+        {/*</Media.Item>*/}
         <Media.Item className={styles.info}>
           <Media.Item className={styles.header}>
             <Heading style={{ marginBottom: '0', fontSize: 24 }} size={4}>
