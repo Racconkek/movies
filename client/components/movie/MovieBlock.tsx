@@ -61,6 +61,7 @@ const MovieBlock = ({ movie }: IMovieBlockProps) => {
             </Media.Item>
           </Media.Item>
           <Media.Item className={styles.description}>{movie.description}</Media.Item>
+          <Media.Item>{movie.tags.map((t) => t.name)}</Media.Item>
           <Media.Item className={styles.footer}>
             <Media.Item className={styles.creationInfo}>
               <div className={styles.authorInfo}>

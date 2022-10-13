@@ -8,20 +8,20 @@ import styles from './CreationButton.module.css';
 
 export const CreationButton = () => {
   const [isCreating, setIsCreating] = useState<boolean>(false);
-  const [openedModal, setOpenedModal] = useState<MovieCreate | undefined>(undefined);
+  const [isOpenedModal, setIsOpenedModal] = useState<boolean>(false);
 
-  const onClick = async () => {
-    const newMovie: MovieCreate = {
-      name: 'Новый фильм',
-      description: 'Описание нового фильма',
-    };
-    setOpenedModal(newMovie);
+  const onClick = () => {
+    setIsOpenedModal(true);
+  };
+
+  const onClose = () => {
+    setIsOpenedModal(false);
   };
 
   const createMovieHandler = async (payload: MovieCreate) => {
     setIsCreating(true);
     try {
-      const response = await createMovie(payload.name, payload.description);
+      const response = await createMovie(payload.name, payload.description, payload.tags);
       if (!response.data) {
         console.log('Ошибка при создании фильма');
         return;
@@ -38,9 +38,7 @@ export const CreationButton = () => {
       <Button color={'grey-dark'} colorVariant={'light'} onClick={onClick} loading={isCreating}>
         Создать
       </Button>
-      {openedModal && (
-        <MovieModal show={!!openedModal} onClose={() => setOpenedModal(undefined)} onSubmit={createMovieHandler} />
-      )}
+      {isOpenedModal && <MovieModal show={!!isOpenedModal} onClose={onClose} onSubmit={createMovieHandler} />}
     </div>
   );
 };

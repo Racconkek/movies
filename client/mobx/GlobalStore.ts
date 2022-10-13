@@ -4,6 +4,7 @@ import { FilterType, SortDirection, SortType } from './constants';
 import { filteredMovies, sortMovies } from './helpers';
 import type { Sort } from './types';
 import type User from '../types/user';
+import { Tag } from '../types/tag';
 
 class GlobalModel {
   constructor() {
@@ -21,6 +22,7 @@ class GlobalModel {
   @observable _movies: Movie[] = [];
   @observable moviesFilter: FilterType = FilterType.All;
   @observable moviesSort: Sort = { type: SortType.CreatedAt, direction: SortDirection.Asc };
+  @observable tags: Tag[] = [];
 
   @action
   setCurrentUser(user: User) {
@@ -102,6 +104,11 @@ class GlobalModel {
   get movies() {
     const movies = this._movies.slice();
     return sortMovies(this.moviesSort, filteredMovies(this.moviesFilter, movies));
+  }
+
+  @action
+  setTags(tags: Tag[]) {
+    this.tags = tags;
   }
 }
 

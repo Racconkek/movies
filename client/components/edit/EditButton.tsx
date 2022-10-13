@@ -11,19 +11,15 @@ export interface IEditButtonProps {
 }
 
 export const EditButton = ({ movie }: IEditButtonProps) => {
-  const [openedModal, setOpenedModal] = useState<MovieCreate | undefined>(undefined);
+  const [isOpenedModal, setIsOpenedModal] = useState<boolean>(false);
 
-  const onClick = async () => {
-    const newMovie: MovieCreate = {
-      name: movie.name,
-      description: movie.description,
-    };
-    setOpenedModal(newMovie);
-  };
+  const onOpen = () => setIsOpenedModal(true);
+
+  const onClose = () => setIsOpenedModal(false);
 
   const updateMovieHandler = async (payload: MovieCreate) => {
     try {
-      const response = await updateMovie(movie.id, payload.name, payload.description);
+      const response = await updateMovie(movie.id, payload.name, payload.description, payload.tags);
       if (!response.data) {
         console.log('Ошибка при обновлении фильма');
         return;
@@ -35,18 +31,21 @@ export const EditButton = ({ movie }: IEditButtonProps) => {
   };
 
   return (
-    <Button className={styles.root} onClick={onClick}>
-      <div>Редактировать</div>
-      {openedModal && (
+    <>
+      <Button className={styles.root} onClick={onOpen}>
+        <div>Редактировать</div>
+      </Button>
+      {isOpenedModal && (
         <MovieModal
-          show={!!openedModal}
-          onClose={() => setOpenedModal(undefined)}
+          show={!!isOpenedModal}
+          onClose={onClose}
           onSubmit={updateMovieHandler}
           name={movie.name}
           description={movie.description}
+          tags={movie.tags}
           submitText={'Сохранить'}
         />
       )}
-    </Button>
+    </>
   );
 };

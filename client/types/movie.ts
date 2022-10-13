@@ -1,5 +1,6 @@
 import Comment from './comment';
 import User from './user';
+import { Tag } from "./tag";
 
 export interface Movie {
   id: number;
@@ -9,10 +10,12 @@ export interface Movie {
   name: string;
   description: string;
   comments: Comment[];
+  tags: Tag[];
   createdAt: string;
 }
 
 export interface MovieCreate {
   name: string;
   description: string;
+  tags: Tag[];
 }

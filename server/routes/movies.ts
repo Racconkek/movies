@@ -5,6 +5,7 @@ import authorizedMiddleware from '../passport/authorizedMiddleware';
 import { Op } from 'sequelize';
 import Like from '../database/models/like';
 import Comment from '../database/models/comment';
+import Tag from '../database/models/tag';
 
 export default function (app: express.Router): void {
   const router = express.Router();
@@ -48,7 +49,7 @@ export default function (app: express.Router): void {
 
   router.get('/', authorizedMiddleware, async function (req, res) {
     const movies = await Movie.findAll({
-      include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+      include: [{ model: Tag }, 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       where: {
         [Op.and]: [
           {
@@ -116,7 +117,7 @@ export default function (app: express.Router): void {
     const { movieId: movieId } = req.params;
 
     const movie = await Movie.findOne({
-      include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }, 'tags'],
+      include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
       where: {
         authorId: userId,
         id: movieId,
@@ -133,10 +134,19 @@ export default function (app: express.Router): void {
 
     movie.name = req.body.name;
     movie.description = req.body.description;
-    movie.tags = req.body.tags;
+    await movie.$set('tags', req.body.tags)
     await movie.save();
 
-    res.json(movie);
+    const updatedMovie = await Movie.findOne({
+      include: ['tags', 'usersWhoLike', 'author', { association: 'comments', include: ['author'] }],
+      where: {
+        authorId: userId,
+        id: movieId,
+      },
+    });
+
+
+    res.json(updatedMovie);
   });
 
   router.delete('/:movieId', authorizedMiddleware, async function (req, res) {

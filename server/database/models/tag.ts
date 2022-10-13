@@ -1,6 +1,6 @@
 import {
   AllowNull,
-  AutoIncrement, BelongsTo,
+  AutoIncrement, BelongsTo, BelongsToMany,
   Column,
   DataType, Default,
   ForeignKey,
@@ -9,6 +9,8 @@ import {
   Table
 } from "sequelize-typescript";
 import User from "./user";
+import Movie from "./movie";
+import { MoviesTags } from "./moviesTags";
 
 @Table
 class Tag extends Model {
@@ -33,6 +35,9 @@ class Tag extends Model {
   @Default("")
   @Column(DataType.STRING)
   color: string;
+
+  @BelongsToMany(() => Movie, () => MoviesTags)
+  movies!: Movie[];
 }
 
 export default Tag;
