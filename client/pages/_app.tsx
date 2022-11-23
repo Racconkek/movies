@@ -7,6 +7,13 @@ import { observer } from 'mobx-react';
 import GlobalStore from '../mobx/GlobalStore';
 import { AppProps } from 'next/app';
 import styles from './app.module.css';
+import { Jura } from '@next/font/google';
+import { cx } from '@emotion/css';
+
+const font = Jura({
+  weight: '400',
+  subsets: ['cyrillic'],
+});
 
 function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string }) {
   useEffect(() => {
@@ -17,7 +24,7 @@ function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string
   }, []);
 
   return (
-    <main className={styles.root}>
+    <main className={cx(font.className, styles.root)}>
       {GlobalStore.authorized && (
         <Header
           pathname={pathname}

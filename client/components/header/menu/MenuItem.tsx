@@ -14,22 +14,23 @@ export interface IMenuItemProps {
 
 export const MenuItem = ({ href, title, isActive, onClick }: IMenuItemProps) => {
   return (
-    <Link href={href}>
-      <div
-        className={cx(
-          styles.root,
-          GlobalStore.layoutService.isMobile && styles.rootMobile,
-          !isActive && styles.nonActiveItem
-        )}
-        onClick={onClick}
-      >
+    <Link
+      href={href}
+      className={cx(
+        styles.root,
+        GlobalStore.layoutService.isMobile && styles.rootMobile,
+        !isActive && styles.nonActiveItem
+      )}
+      onClick={onClick}
+    >
+      <>
         {isActive && (
           <div className={styles.icon}>
             <ActiveIcon />
           </div>
         )}
         {title}
-      </div>
+      </>
     </Link>
   );
 };
