@@ -5,6 +5,8 @@ import { filteredMovies, sortMovies } from './helpers';
 import type { Sort } from './types';
 import type User from '../types/user';
 import { Tag } from '../types/tag';
+import { getMyInfo } from '../api/user';
+import { LayoutService } from '../services/LayoutService';
 
 class GlobalModel {
   constructor() {
@@ -23,6 +25,7 @@ class GlobalModel {
   @observable moviesFilter: FilterType = FilterType.All;
   @observable moviesSort: Sort = { type: SortType.CreatedAt, direction: SortDirection.Asc };
   @observable tags: Tag[] = [];
+  @observable layoutService = new LayoutService();
 
   @action
   setCurrentUser(user: User) {
@@ -109,6 +112,40 @@ class GlobalModel {
   @action
   setTags(tags: Tag[]) {
     this.tags = tags;
+  }
+
+  @action
+  private authorize(myInfo: User) {
+    this.setAvatar(myInfo.avatar);
+    this.setFirstName(myInfo.firstName);
+    this.setSecondName(myInfo.secondName);
+    this.setId(myInfo.id);
+    this.setEmail(myInfo.email);
+    this.setCurrentUser(myInfo);
+    this.setAuthorized(true);
+  }
+
+  @action
+  async start() {
+    let myInfo;
+    try {
+      myInfo = (await getMyInfo()).data;
+    } catch (e) {
+      console.error(e);
+    }
+
+    if (!myInfo) {
+      return;
+    }
+
+    this.authorize(myInfo);
+
+    await this.layoutService.start();
+  }
+
+  @action
+  async stop() {
+    await this.layoutService.stop();
   }
 }
 

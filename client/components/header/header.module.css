@@ -1,13 +1,29 @@
 .root {
-    width: 100%;
-    min-height: 70px;
+    height: 100%;
+    width: 10%;
     display: flex;
-    align-items: center;
-    gap: 32px;
-    padding: 0 32px;
-    background-color: #F6F6F6;
+    flex-direction: column;
+    background-color: transparent;
 }
 
-.activeItem {
-    box-shadow: 0 0px 0px 1px rgb(0 0 0 / 8%);
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.desktopMenu {
+    height: 100%;
+    width: 100%;
+    padding: 32px 0 0;
+}
+
+@media (max-width: 1023px) {
+    .root {
+        width: 100%;
+        flex-direction: row;
+        gap: 32px;
+        padding: 23px 16px;
+    }
 }

@@ -1,14 +1,12 @@
 import { observer } from 'mobx-react';
-import { Button } from 'react-bulma-components';
-import NextJSLink from 'next/link';
+import Link from 'next/link';
+import { Button } from '../button/Button';
 
 const Component = () => {
   return (
-    <NextJSLink href="/api/user/oauth/google">
-      <Button color={'grey-dark'} colorVariant={'light'} size={'large'} >
-        Войдите
-      </Button>
-    </NextJSLink>
+    <Link href="/api/user/oauth/google" passHref>
+      <Button size={'large'}>Войдите</Button>
+    </Link>
   );
 };
 

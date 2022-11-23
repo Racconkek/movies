@@ -1,12 +1,12 @@
 import { MovieCreate } from '../../types/movie';
-import { Button } from 'react-bulma-components';
+
 import React, { useState } from 'react';
 import { createMovie } from '../../api/movieApi';
 import GlobalStore from '../../mobx/GlobalStore';
 import MovieModal from '../movie/MovieModal';
-import styles from './CreationButton.module.css';
+import { Button, IButtonProps } from "../button/Button";
 
-export const CreationButton = () => {
+export const CreationButton = (props: IButtonProps) => {
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [isOpenedModal, setIsOpenedModal] = useState<boolean>(false);
 
@@ -34,8 +34,8 @@ export const CreationButton = () => {
   };
 
   return (
-    <div className={styles.root}>
-      <Button color={'grey-dark'} colorVariant={'light'} onClick={onClick} loading={isCreating}>
+    <div>
+      <Button onClick={onClick} isLoading={isCreating} {...props}>
         Создать
       </Button>
       {isOpenedModal && <MovieModal show={!!isOpenedModal} onClose={onClose} onSubmit={createMovieHandler} />}

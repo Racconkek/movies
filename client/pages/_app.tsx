@@ -1,74 +1,42 @@
 import 'bulma/css/bulma.min.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../styles/globals.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/header/header';
-import { getMyInfo } from '../api/user';
-import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import GlobalStore from '../mobx/GlobalStore';
 import { AppProps } from 'next/app';
 import styles from './app.module.css';
 
 function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string }) {
-  async function load() {
-    let myInfo;
-    try {
-      myInfo = (await getMyInfo()).data;
-    } catch (e) {
-      console.error(e);
-    }
-
-    if (!myInfo) {
-      return;
-    }
-
-    // С этого места мы авторизованы
-
-    // const ws = new WebSocket(WSURL);
-
-    // ws.onclose = () => {
-    //   console.log("Мы отключились от WS");
-    // };
-    //
-    // ws.onerror = (err) => {
-    //   console.log(err);
-    // };
-
-    GlobalStore.setAuthorized(true);
-    GlobalStore.setAvatar(myInfo.avatar);
-    GlobalStore.setFirstName(myInfo.firstName);
-    GlobalStore.setSecondName(myInfo.secondName);
-    GlobalStore.setId(myInfo.id);
-    GlobalStore.setEmail(myInfo.email);
-    GlobalStore.setCurrentUser(myInfo);
-    // GlobalStore.setWs(ws);
-  }
-
   useEffect(() => {
-    load();
+    GlobalStore.start();
+    return function cleanup() {
+      GlobalStore.stop();
+    };
   }, []);
 
   return (
     <main className={styles.root}>
-      <Header
-        pathname={pathname}
-        menuItems={
-          GlobalStore.authorized
-            ? [
-                {
-                  title: 'Фильмы',
-                  url: '/movies',
-                },
-                {
-                  title: `Профиль`,
-                  url: '/profile',
-                },
-              ]
-            : []
-        }
-        authorized={GlobalStore.authorized}
-      />
+      {GlobalStore.authorized && (
+        <Header
+          pathname={pathname}
+          menuItems={
+            GlobalStore.authorized
+              ? [
+                  {
+                    title: 'Фильмы',
+                    url: '/movies',
+                  },
+                  {
+                    title: `Профиль`,
+                    url: '/profile',
+                  },
+                ]
+              : []
+          }
+        />
+      )}
       <div className={styles.container}>
         <Component {...pageProps} />
       </div>
