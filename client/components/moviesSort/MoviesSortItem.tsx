@@ -3,6 +3,7 @@ import styles from './MoviesSortItem.module.css';
 import { observer } from 'mobx-react';
 import { IconSortAscending, IconSortDescending } from '@tabler/icons';
 import { SortDirection } from '../../mobx/constants';
+import { cx } from '@emotion/css';
 
 export interface IMoviesSortItemProps {
   active?: boolean;
@@ -13,17 +14,17 @@ export interface IMoviesSortItemProps {
 
 export const Component = ({ active, content, onClick, sortDirection }: IMoviesSortItemProps) => {
   return (
-    <div className={styles.root} onClick={onClick}>
+    <div className={cx(styles.root, active && styles.active)} onClick={onClick}>
       {content}
-      <div>
+      <div className={cx(styles.icon, active && styles.activeIcon)}>
         {active ? (
           sortDirection === SortDirection.Asc ? (
-            <IconSortAscending className={styles.activeIcon} />
+            <IconSortAscending />
           ) : (
-            <IconSortDescending className={styles.activeIcon} />
+            <IconSortDescending />
           )
         ) : (
-          <IconSortAscending className={styles.icon} />
+          <IconSortAscending />
         )}
       </div>
     </div>

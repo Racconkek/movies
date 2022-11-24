@@ -18,6 +18,7 @@
 .nonActiveItem {
     padding-left: 24px;
     margin-left: 0;
+    color: rgba(74, 74, 74, 0.5);
 }
 
 .icon {

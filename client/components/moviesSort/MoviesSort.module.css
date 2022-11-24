@@ -1,2 +1,12 @@
 .root {
+    height: 100%;
+    background-color: #fefefe;
+    border-radius: 40px;
+    padding: 10px 16px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

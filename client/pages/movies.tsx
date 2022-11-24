@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { getMovies, getTags } from '../api/movieApi';
-import { Block } from 'react-bulma-components';
 import Head from 'next/head';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import MovieBlock from '../components/movie/MovieBlock';
@@ -9,7 +8,6 @@ import GlobalStore from '../mobx/GlobalStore';
 import styles from './movies.module.css';
 import { MoviesSort } from '../components/moviesSort/MoviesSort';
 import { MoviesFilter } from '../components/moviesFilter/MoviesFilter';
-import { UnAuthorizedBlock } from '../components/unAuthorized/UnAuthorizedBlock';
 
 function MoviesPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -58,25 +56,21 @@ function MoviesPage() {
       <Head>
         <title>Фильмецы</title>
       </Head>
-      {!GlobalStore.authorized ? (
-        <UnAuthorizedBlock />
-      ) : (
-        <div className={styles.root}>
-          <Block key={'sortBlock'} className={styles.sortBlock}>
-            <MoviesSort />
-          </Block>
-          <Block key={'contentBlock'} className={styles.contentBlock}>
-            <Block key={'filterBlock'} className={styles.filterBlock}>
-              <MoviesFilter />
-            </Block>
-            <Block key={'listBlock'} className={styles.listBlock}>
-              <PerfectScrollbar className={styles.scrollBar}>
-                {isLoading ? 'Загрузка' : GlobalStore.movies.map((m) => <MovieBlock key={m.id} movie={m} />)}
-              </PerfectScrollbar>
-            </Block>
-          </Block>
+      <div className={styles.root}>
+        <div key={'contentBlock'} className={styles.contentBlock}>
+          <div key={'filterBlock'} className={styles.filterBlock}>
+            <MoviesFilter />
         </div>
-      )}
+          <div key={'listBlock'} className={styles.listBlock}>
+            <PerfectScrollbar className={styles.scrollBar}>
+              {isLoading ? 'Загрузка' : GlobalStore.movies.map((m) => <MovieBlock key={m.id} movie={m} />)}
+            </PerfectScrollbar>
+          </div>
+        </div>
+        <div key={'sortBlock'} className={styles.sortBlock}>
+          <MoviesSort />
+        </div>
+      </div>
     </>
   );
 }

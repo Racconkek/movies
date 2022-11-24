@@ -1,26 +1,39 @@
 .root {
     display: flex;
     flex-direction: row;
+    width: 100%;
     height: 100%;
-    padding: 0 32px;
+    padding: 38px 32px 0;
     gap: 24px;
 }
 
 .sortBlock {
-    width: 15%;
+    width: 10%;
     min-width: 200px;
 }
 
 .contentBlock {
-    width: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 4px;
+    border-radius: 40px;
+    background-color: rgba(254, 254, 254, 0.3);
 }
 
 .filterBlock {
-    padding: 4px 16px;
+    height: 6%;
+    display: flex;
+    background-color: transparent;
+    padding-top: 8px;
 }
 
 .listBlock {
-    height: 90%;
+    width: 100%;
+    height: 94%;
+    border-radius: 40px 40px;
+    padding: 0 10px 10px;
 }
 
 .scrollBar {
@@ -28,6 +41,7 @@
     flex-direction: column;
     align-items: center;
     padding: 16px;
+    gap: 16px;
 }
 
 @media (max-width: 1023px) {

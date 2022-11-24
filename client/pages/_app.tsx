@@ -9,6 +9,7 @@ import { AppProps } from 'next/app';
 import styles from './app.module.css';
 import { Jura } from '@next/font/google';
 import { cx } from '@emotion/css';
+import { UnAuthorizedBlock } from '../components/unAuthorized/UnAuthorizedBlock';
 
 const font = Jura({
   weight: '400',
@@ -45,7 +46,7 @@ function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string
         />
       )}
       <div className={styles.container}>
-        <Component {...pageProps} />
+        {!GlobalStore.authorized ? <UnAuthorizedBlock /> : <Component {...pageProps} />}
       </div>
     </main>
   );

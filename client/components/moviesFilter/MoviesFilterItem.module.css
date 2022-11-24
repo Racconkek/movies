@@ -1,18 +1,18 @@
 .root {
     cursor: pointer;
     color: #4a4a4a;
-    border-bottom-color: #dbdbdb;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    padding: 0.5em 1em;
+    padding: 8px 16px;
 }
 
-.root:hover {
-    border-bottom-color: #d69d38;
+.caption {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
 }
 
-.active {
-    border-bottom-color: #d69d38;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

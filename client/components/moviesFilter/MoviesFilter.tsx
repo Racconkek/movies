@@ -23,7 +23,7 @@ const Component = () => {
       />
       <MoviesFilterItem
         key={'likes'}
-        caption={<IconHeart color={'#D41818FF'} />}
+        caption={<IconHeart color={'rgba(213,55,55,0.82)'} />}
         isActive={GlobalStore.moviesFilter === FilterType.Favourites}
         onClick={() => GlobalStore.setFilter(FilterType.Favourites)}
       />
