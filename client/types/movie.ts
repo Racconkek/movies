@@ -1,6 +1,6 @@
 import Comment from './comment';
 import User from './user';
-import { Tag } from "./tag";
+import { Tag } from './tag';
 
 export interface Movie {
   id: number;

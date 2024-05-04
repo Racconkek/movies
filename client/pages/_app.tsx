@@ -40,6 +40,10 @@ function MyApp({ Component, pageProps, pathname }: AppProps & { pathname: string
                     title: `Профиль`,
                     url: '/profile',
                   },
+                  {
+                    title: 'Поиск',
+                    url: '/search',
+                  },
                 ]
               : []
           }

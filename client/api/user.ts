@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from 'axios';
 import Router from 'next/router';
-import { URL, unauthorizedPages } from './config';
+import { API_URL, unauthorizedPages } from './config';
 import User from '../types/user';
 
 axios.interceptors.response.use(
@@ -18,4 +18,4 @@ axios.interceptors.response.use(
   }
 );
 
-export const getMyInfo = (): AxiosPromise<User> => axios.get(`${URL}/user/me`);
+export const getMyInfo = (): AxiosPromise<User> => axios.get(`${API_URL}/user/me`);

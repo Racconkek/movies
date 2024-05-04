@@ -1,5 +1,5 @@
-import { format, parse } from "date-fns";
-import russianLocale from "date-fns/locale/ru";
+import { format, parse } from 'date-fns';
+import russianLocale from 'date-fns/locale/ru';
 
 const DATE_TOKEN = 'dd.MM.yyyy';
 
@@ -14,11 +14,7 @@ export class DateHelper {
     }
   }
 
-  public static parseDate(
-    dateString: string,
-    format = DEFAULT_DATE_FORMAT,
-    baseDate = new Date(),
-  ): Date {
+  public static parseDate(dateString: string, format = DEFAULT_DATE_FORMAT, baseDate = new Date()): Date {
     if (!dateString) {
       return new Date();
     }

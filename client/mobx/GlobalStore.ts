@@ -7,6 +7,7 @@ import type User from '../types/user';
 import { Tag } from '../types/tag';
 import { getMyInfo } from '../api/user';
 import { LayoutService } from '../services/LayoutService';
+import type { KinopoiskSearchMovieResponse } from '../types/kinopoisk';
 
 class GlobalModel {
   constructor() {
@@ -26,6 +27,13 @@ class GlobalModel {
   @observable moviesSort: Sort = { type: SortType.CreatedAt, direction: SortDirection.Asc };
   @observable tags: Tag[] = [];
   @observable layoutService = new LayoutService();
+
+  @observable searchPages: KinopoiskSearchMovieResponse[] = [];
+
+  @action
+  addSearchPage(page: KinopoiskSearchMovieResponse) {
+    this.searchPages = [page, ...this.searchPages];
+  }
 
   @action
   setCurrentUser(user: User) {

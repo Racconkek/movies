@@ -7,7 +7,7 @@ import Tag from './models/tag';
 import { MoviesTags } from "./models/moviesTags";
 
 export default async function (): Promise<void> {
-  const sequelize = new Sequelize(process.env.DB_URI);
+  const sequelize = new Sequelize(process.env.DB_URI,  { ssl: true });
   try {
     await sequelize.authenticate();
     console.log('Соединение с БД было успешно установлено');

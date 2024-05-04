@@ -60,7 +60,7 @@ function MoviesPage() {
         <div key={'contentBlock'} className={styles.contentBlock}>
           <div key={'filterBlock'} className={styles.filterBlock}>
             <MoviesFilter />
-        </div>
+          </div>
           <div key={'listBlock'} className={styles.listBlock}>
             <PerfectScrollbar className={styles.scrollBar}>
               {isLoading ? 'Загрузка' : GlobalStore.movies.map((m) => <MovieBlock key={m.id} movie={m} />)}
